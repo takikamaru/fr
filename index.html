@@ -1,0 +1,110 @@
+<span style="font-family: verdana, geneva, sans-serif;">
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+
+  <body>
+    <div class="login-box">
+      <h1>Вход</h1>
+      <form>
+        <label>Почта</label>
+        <test>
+          <input type="email" placeholder="Введите эл.почту" required autofocus />
+          <i class='bx bxs-user'></i>
+        </test>
+        <label>Пароль</label>
+        <test>
+          <input type="password" placeholder="Введите пароль" required autofocus />
+          <i class='bx bxs-lock-alt'></i>
+        </test>
+
+        <input value="true" type="checkbox" class="check3" />
+
+        <button type="submit">Отправить</button>
+        <button disabled="disabled">Отправить</button>
+
+        <test-1>
+          <input placeholder="Здесь будет капча" type="text" id="res-input" oncopy="return false" oncut="return false"
+            onpaste="return false" readonly>
+          <label id="bttn"><i class='bx bx-refresh'></i></label>
+          <input placeholder="Введите капчу" id="nInput" type="text" oncopy="return false" oncut="return false"
+            onpaste="return false">
+          <label id="bttn2"><i class='bx bx-check'></i></label>
+        </test-1>
+
+      </form>
+    </div>
+    <p class="para-2">
+      У вас ещё нет аккаунта? <a href="signup.html">Зарегистрируйтесь здесь</a>
+    </p>
+    </div>
+
+    <script>
+      document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+      })
+    </script>
+
+    <script>
+      let resInput = document.querySelector('#res-input');
+      let bttn = document.querySelector('#bttn');
+      let bttn2 = document.querySelector('#bttn2');
+      let res = '';
+      let str = 'abcdefghijklmopqrstuvwxyz1234567890';
+      bttn.addEventListener('click', function () {
+        res = '';
+        for (let i = 0; i < 6; i++) {
+          res += str[getRandom(0, str.length - 1)]; //генерация капчи
+        }
+        resInput.value = res;
+      });
+      function getRandom(min, max) { //рандомное значение
+        return Math.floor(Math.random() * max - min + 1) + min;
+      }
+      bttn2.addEventListener('click', function () {
+        let nInput = document.querySelector("#nInput").value;
+        if (nInput == res) {
+          // То выводит "Вход разрешён
+          checkAll();
+          alert("Вход разрешён");
+        }
+        else {
+          // Иначе выводит "Вход запрещен"
+          uncheckAll();
+          alert("Вход запрещен, введите капчу повторно!");
+          res = '';
+          for (let i = 0; i < 6; i++) {
+            res += str[getRandom(0, str.length - 1)]; //генерация капчи
+          }
+          resInput.value = res;
+        }
+      });
+    </script>
+    <script>
+      function checkAll() {
+        let inputs = document.querySelectorAll('.check3');
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].checked = true;
+        }
+      }
+      function uncheckAll() {
+        let inputs = document.querySelectorAll('.check3');
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].checked = false;
+        }
+      }
+      window.onload = function () {
+        window.addEventListener('load', checkAll, false);
+      }
+    </script>
+  </body>
+
+  </html>
+</span>
